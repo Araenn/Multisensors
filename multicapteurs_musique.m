@@ -3,7 +3,7 @@ clc; clear; close all
 [s1, Fs1] = audioread("ghibli.mp3");
 [s2, Fs2] = audioread("scooby.mp3");
 
-n = 50000;
+n = min(length(s1), length(s2));
 s1 = s1(1:n)';
 s2 = s2(1:n)';
 t = (0:n-1)';
@@ -115,5 +115,5 @@ plot(t, z(1,:))
 grid()
 title("z2")
 
-audiowrite("resultat1.wav", normalize(z(1,:)', 'range', [-1.0, 1.0]), Fs1);
-audiowrite("resultat2.wav", normalize(z(2,:)', 'range', [-1.0, 1.0]), Fs2);
+audiowrite("resultat1.wav", normalize(z(1,:), 'range', [-1.0, 1.0]), Fs1);
+audiowrite("resultat2.wav", normalize(z(2,:), 'range', [-1.0, 1.0]), Fs2);
