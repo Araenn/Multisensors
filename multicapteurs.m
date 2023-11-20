@@ -1,9 +1,9 @@
 clc; clear; close all
 
 
-f1 = 0.0020;
+f1 = 0.001;
 
-n = 1000;
+n = 10000;
 t = (0:n-1)';
 sigma = 0;
 
@@ -18,7 +18,7 @@ s2 = (s2 - mean(s2));
 s2 = s2 / std(s2);
 
 % matrice de melange
-m = [1 0.9; 0.95 1];
+m = [1 0.7; 0.9 1];
 
 % observations
 y1 = m(1,1) * s1 + m(1,2) * s2 + sigma * randn(n, 1);
@@ -38,7 +38,7 @@ x = B * y;
 Rx = cov(x');
 
 % separation
-tau = 0.9;
+tau = 0.5;
 N = size(s, 1);
 for i = 1:N
     for j = 1:N
@@ -63,14 +63,14 @@ end
 
 Tx = (Tx + Tx') / 2;
 [U, D] = eig(Tx);
-%z = U' * x;
+z = U' * x;
 
 % sinon
 
 T2 = Tx;
 [V, L] = eig(T2, T1);
-z = V' * x;
-DP = V' * B * m;
+%z = V' * x;
+DP = U' * B * m;
 
 %% Representations
 
